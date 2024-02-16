@@ -1,18 +1,15 @@
 import Express, { request } from "express";
 
-const permisos = Express();
+const permiso = Express();
 import { getPermisos, postPermisos,putPermisos, deletePermisos} from "../controllers/permisosController.js";
 
 
-permisos.get('', getPermisos)
+permiso.get('', getPermisos)
 
-permisos.post('', postPermisos)
+permiso.post('', postPermisos)
 
-permisos.put('/:id', putPermisos)
+permiso.put('/:idpermiso', putPermisos)
 
-permisos.delete('/:id', deletePermisos)
+permiso.delete('/:idpermiso', deletePermisos)
 
-
-
-
-export { permisos }
+export { permiso }
