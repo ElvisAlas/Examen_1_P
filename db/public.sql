@@ -152,5 +152,12 @@ select idincidentes
                         inner join tbl_RRHH RH on rh.id=i.idrrhhempleado
                     order by i.idincidentes
 
+select idvacaciones
+                        ,rh.nombre as nombre
+                        , V.fechainicio
+                        ,V.fechafinal                       
+                    from tbl_Empleados_vacaciones V
+                        inner join tbl_RRHH RH on rh.id=V.idrrhhempleado
+                    order by idvacaciones
 
 

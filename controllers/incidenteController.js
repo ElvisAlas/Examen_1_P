@@ -1,6 +1,6 @@
 import { db } from "../db/conn.js";
 
-const getIdIncidentes = async (req, res) => {
+const getIncidentes = async (req, res) => {
     const sql = `select idincidentes
                         ,rh.nombre as nombre
                         , i.incidentes
@@ -13,7 +13,7 @@ const getIdIncidentes = async (req, res) => {
 
 }
 
-const postIdIncidentes = async (req, res) => {
+const postIncidentes = async (req, res) => {
 
     const { idrrhhempleado, incidentes ,solucion} = req.body;
     const params = [idrrhhempleado, incidentes,solucion];
@@ -25,7 +25,7 @@ const postIdIncidentes = async (req, res) => {
     res.json(result);
 }
 
-const putidIncidentes = async (req, res) => {
+const putIncidentes = async (req, res) => {
 
     const { idrrhhempleado, incidentes,solucion } = req.body;
     const { idincidentes } = req.params;
@@ -43,7 +43,7 @@ const putidIncidentes = async (req, res) => {
 
 }
 
-const deleteIdincidentes = async (req, res) => {
+const deleteincidentes = async (req, res) => {
 
     const params = [req.params.idincidentes];
     const sql = `delete from  tbl_Empleados_incidentes where idincidentes=$1 returning * `
@@ -52,7 +52,7 @@ const deleteIdincidentes = async (req, res) => {
 }
 
 
-export { getIdIncidentes, postIdIncidentes,putidIncidentes, deleteIdincidentes}
+export { getIncidentes, postIncidentes,putIncidentes, deleteincidentes}
 
 
 
