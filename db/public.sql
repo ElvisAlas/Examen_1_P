@@ -144,6 +144,13 @@ select rrhh.nombre,departamento.nombre as departamento, puesto.nombrepuesto as p
             inner join tbl_Departamento departamento on departamento.iddepartamento=puesto.iddepartamento
                 inner join tbl_salarios salario on salario.idsalario=puesto.idSalario
 
+select idincidentes
+                        ,rh.nombre as nombre
+                        , i.incidentes
+                        ,i.solucion                       
+                    from tbl_Empleados_incidentes i
+                        inner join tbl_RRHH RH on rh.id=i.idrrhhempleado
+                    order by i.idincidentes
 
 
 
