@@ -6,6 +6,7 @@ import { permiso } from './routers/apiPermisos.js';
 import { incidente } from './routers/apiIncidentes.js';
 import { vaciones } from './routers/apiVacaciones.js';
 import { validarUsuario } from './routers/validarUsuario.js';
+import { nuevoUsuario } from './routers/registrarUsuario.js';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -14,14 +15,7 @@ app.use(express.json());
 
 // Middleware para permitir el acceso a través de CORS
 
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); 
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); 
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-//   next();
-// });
-
-app.use((req, res, next) => {
+app.use('*',(req, res, next) => {
   const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
@@ -30,6 +24,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true); 
+
   next();
 });
 
@@ -40,6 +35,7 @@ app.use('/api/salarios', salario);
 app.use('/api/permisos', permiso);
 app.use('/api/incidentes', incidente);
 app.use('/api/vacaciones', vaciones);
+app.use('/api/usuario',nuevoUsuario);
 
 
 // Manejo de rutas no encontradas

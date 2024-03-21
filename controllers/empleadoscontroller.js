@@ -9,14 +9,21 @@ const getEmpleado = async (req, res) => {
 
 const postEmpleado = async (req, res) => {
  
-    const { identidad, nombre } = req.body;
-    const params = [identidad, nombre];
-    const sql = `insert into tbl_rrhh
-                (identidad,nombre)
-                values
-                ($1,$2) returning * `
-    const result = await db.query(sql, params);
-    res.json(result);
+    try {
+        const { identidad, nombre } = req.body;
+        const params = [identidad, nombre];
+        console.log(req.body);
+        const sql = `insert into tbl_rrhh
+                    (identidad,nombre)
+                    values
+                    ($1,$2) returning identidad ,'Insercion Exitosa' mensaje `
+        const result = await db.query(sql, params);
+    
+        res.json(result);
+    }catch{
+        res.status(500).json({ mensaje: err.message });
+    }
+   
 }
 
 const putEmpledo = async (req, res) => {
@@ -30,7 +37,7 @@ const putEmpledo = async (req, res) => {
         id
     ]
 
-    const sql = `update tbl_rrhh set identidad=$1, nombre=$2 where id=$3 returning * `
+    const sql = `update tbl_rrhh set identidad=$1, nombre=$2 where id=$3 returning identidad,'Actualizado' mensaje `
     const result = await db.query(sql, params);
     res.json(result);
 
@@ -39,7 +46,7 @@ const putEmpledo = async (req, res) => {
 const deleteEmpleado = async (req, res) => {
 
     const params = [req.params.id];
-    const sql = `delete from  tbl_rrhh where id=$1 returning * `
+    const sql = `delete from  tbl_rrhh where id=$1 returning identidad,'Eliminado' mensaje  `
     const result = await db.query(sql, params);
     res.json(result);
 }
