@@ -6,7 +6,7 @@ const postnuevoUsuario = async (req, res) => {
     try{
        
         const { usuario,correo,contrasena } = req.body;
-        console.log(req.body)
+     
         const {
             buffer     
         } = req.file;

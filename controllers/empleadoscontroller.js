@@ -1,30 +1,32 @@
 import { db } from "../db/conn.js";
 
 const getEmpleado = async (req, res) => {
-    const sql = `select * from tbl_RRHH order by id`;
+    const sql = `select id, identidad, nombre, encode(foto, 'base64') AS foto from tbl_RRHH order by id`;
     const result = await db.query(sql);
     res.json(result)
 
 }
 
 const postEmpleado = async (req, res) => {
- 
     try {
         const { identidad, nombre } = req.body;
-        const params = [identidad, nombre];
-        console.log(req.body);
-        const sql = `insert into tbl_rrhh
-                    (identidad,nombre)
-                    values
-                    ($1,$2) returning identidad ,'Insercion Exitosa' mensaje `
+        let foto;
+
+        if (req.body.imagen!='') {
+            foto = req.body.imagen; 
+        }
+
+        const params = [identidad, nombre, foto];
+              
+        const sql = `insert into tbl_rrhh (identidad, nombre, foto) values ($1, $2, $3) returning identidad, 'Insercion Exitosa' mensaje`;
         const result = await db.query(sql, params);
     
         res.json(result);
-    }catch{
-        res.status(500).json({ mensaje: err.message });
+    } catch (error) {
+        res.status(500).json({ mensaje: error.message });
     }
-   
 }
+
 
 const putEmpledo = async (req, res) => {
 
