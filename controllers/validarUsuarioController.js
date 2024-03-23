@@ -7,17 +7,17 @@ const GetUsuario = async (req, res) => {
         if (!Usuario || !Contrasena) {
             return res.status(400).json({ error: "Los campos 'Usuario' y 'Contrasena' son requeridos." });
         }
+        const params = [Usuario, Contrasena];
 
         const sql = `
             SELECT COUNT(1) as validado
-            FROM Usuarios
-            WHERE Usuario = $1 AND Contrasena = $2
+            FROM usuarios
+            WHERE usuario = $1 AND contrasena = $2
         `;
-        const params = [Usuario, Contrasena];
-
+   
         const result = await db.query(sql, params);
-              
-        if (result[0].validado === "1") {
+           console.log(result)   
+        if (result[0].validado >= "1") {
             res.status(200).json({ success: true, message: "Usuario validado correctamente." });
         } else {
             res.status(401).json({ success: false, message: "Usuario o contraseña incorrectos." });
